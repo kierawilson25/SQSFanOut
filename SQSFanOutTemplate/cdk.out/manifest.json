@@ -1,0 +1,174 @@
+{
+  "version": "41.0.0",
+  "artifacts": {
+    "SQSFanOutTemplate.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "SQSFanOutTemplate.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "SQSFanOutTemplate": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "SQSFanOutTemplate.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/d6d385f750304027253dee300020ad44a92f7c28968bd3fc6442f16b67e2e1a8.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "SQSFanOutTemplate.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "SQSFanOutTemplate.assets"
+      ],
+      "metadata": {
+        "/SQSFanOutTemplate/LambdaCodeS3ObjectVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaCodeS3ObjectVersion"
+          }
+        ],
+        "/SQSFanOutTemplate/LambdaCodeS3Bucket": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaCodeS3Bucket"
+          }
+        ],
+        "/SQSFanOutTemplate/LambdaCodeZipFile": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaCodeZipFile"
+          }
+        ],
+        "/SQSFanOutTemplate/LambdaCodeImageUri": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaCodeImageUri"
+          }
+        ],
+        "/SQSFanOutTemplate/LambdaCodeS3Key": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaCodeS3Key"
+          }
+        ],
+        "/SQSFanOutTemplate/IAMManagedPolicyPolicyserviceroleAWSLambdaBasicExecutionRole12a7b83263fb4700a64b79855bd0f6ad": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMManagedPolicyPolicyserviceroleAWSLambdaBasicExecutionRole12a7b83263fb4700a64b79855bd0f6ad"
+          }
+        ],
+        "/SQSFanOutTemplate/IAMManagedPolicyPolicyserviceroleAWSLambdaBasicExecutionRolec9016dd897564ea1b28c411330a967d6": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMManagedPolicyPolicyserviceroleAWSLambdaBasicExecutionRolec9016dd897564ea1b28c411330a967d6"
+          }
+        ],
+        "/SQSFanOutTemplate/IAMManagedPolicyPolicyserviceroleAWSLambdaS3ExecutionRoleb1d9459c168544d6a7697e835365c9a8": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMManagedPolicyPolicyserviceroleAWSLambdaS3ExecutionRoleb1d9459c168544d6a7697e835365c9a8"
+          }
+        ],
+        "/SQSFanOutTemplate/IAMManagedPolicyPolicyserviceroleAWSLambdaSQSPollerExecutionRole230286410fcc43d4a53411ff12cc32a3": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMManagedPolicyPolicyserviceroleAWSLambdaSQSPollerExecutionRole230286410fcc43d4a53411ff12cc32a3"
+          }
+        ],
+        "/SQSFanOutTemplate/IAMManagedPolicyPolicyserviceroleAWSLambdaSQSPollerExecutionRole262bfa723639406fa3052f99a112e8a5": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMManagedPolicyPolicyserviceroleAWSLambdaSQSPollerExecutionRole262bfa723639406fa3052f99a112e8a5"
+          }
+        ],
+        "/SQSFanOutTemplate/S3BucketImguploadiac2025resized": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "S3BucketImguploadiac2025resized"
+          }
+        ],
+        "/SQSFanOutTemplate/SQSQueueNewimguploadqueue": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SQSQueueNewimguploadqueue"
+          }
+        ],
+        "/SQSFanOutTemplate/IAMRoleGeneratethumbnailrole": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleGeneratethumbnailrole"
+          }
+        ],
+        "/SQSFanOutTemplate/IAMRoleLambdasqsaccess": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "IAMRoleLambdasqsaccess"
+          }
+        ],
+        "/SQSFanOutTemplate/SNSTopicImguploadspring2025124375": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SNSTopicImguploadspring2025124375"
+          }
+        ],
+        "/SQSFanOutTemplate/LambdaFunctionGeneratethumbnaillambda": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LambdaFunctionGeneratethumbnaillambda"
+          }
+        ],
+        "/SQSFanOutTemplate/S3BucketImguploadiac2025": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "S3BucketImguploadiac2025"
+          }
+        ],
+        "/SQSFanOutTemplate/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/SQSFanOutTemplate/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/SQSFanOutTemplate/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/SQSFanOutTemplate/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "SQSFanOutTemplate"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  },
+  "minimumCliVersion": "2.1005.0"
+}

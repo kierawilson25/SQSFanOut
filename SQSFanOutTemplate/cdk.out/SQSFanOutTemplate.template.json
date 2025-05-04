@@ -1,0 +1,796 @@
+{
+ "Parameters": {
+  "LambdaCodeS3ObjectVersion": {
+   "Type": "String",
+   "Default": "latest"
+  },
+  "LambdaCodeS3Bucket": {
+   "Type": "String",
+   "Default": "my-bucket-name"
+  },
+  "LambdaCodeZipFile": {
+   "Type": "String",
+   "Default": "my-zip-file.zip"
+  },
+  "LambdaCodeImageUri": {
+   "Type": "String",
+   "Default": "my-image-uri"
+  },
+  "LambdaCodeS3Key": {
+   "Type": "String",
+   "Default": "my-s3-key"
+  },
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Resources": {
+  "IAMManagedPolicyPolicyserviceroleAWSLambdaBasicExecutionRole12a7b83263fb4700a64b79855bd0f6ad": {
+   "Type": "AWS::IAM::ManagedPolicy",
+   "Properties": {
+    "Description": "",
+    "Groups": [],
+    "ManagedPolicyName": "AWSLambdaBasicExecutionRole-12a7b832-63fb-4700-a64b-79855bd0f6ad",
+    "Path": "/service-role/",
+    "PolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Resource": "arn:aws:logs:us-east-1:361769557650:*",
+       "Action": "logs:CreateLogGroup",
+       "Effect": "Allow"
+      },
+      {
+       "Resource": [
+        "arn:aws:logs:us-east-1:361769557650:log-group:/aws/lambda/sqs-message-logger:*"
+       ],
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow"
+      }
+     ]
+    },
+    "Roles": [
+     "lambda-sqs-access"
+    ],
+    "Users": []
+   },
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "SQSFanOutTemplate/IAMManagedPolicyPolicyserviceroleAWSLambdaBasicExecutionRole12a7b83263fb4700a64b79855bd0f6ad"
+   }
+  },
+  "IAMManagedPolicyPolicyserviceroleAWSLambdaBasicExecutionRolec9016dd897564ea1b28c411330a967d6": {
+   "Type": "AWS::IAM::ManagedPolicy",
+   "Properties": {
+    "Description": "",
+    "Groups": [],
+    "ManagedPolicyName": "AWSLambdaBasicExecutionRole-c9016dd8-9756-4ea1-b28c-411330a967d6",
+    "Path": "/service-role/",
+    "PolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Resource": "arn:aws:logs:us-east-1:361769557650:*",
+       "Action": "logs:CreateLogGroup",
+       "Effect": "Allow"
+      },
+      {
+       "Resource": [
+        "arn:aws:logs:us-east-1:361769557650:log-group:/aws/lambda/generate-thumbnail-lambda:*"
+       ],
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow"
+      }
+     ]
+    },
+    "Roles": [
+     "generate-thumbnail-role"
+    ],
+    "Users": []
+   },
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "SQSFanOutTemplate/IAMManagedPolicyPolicyserviceroleAWSLambdaBasicExecutionRolec9016dd897564ea1b28c411330a967d6"
+   }
+  },
+  "IAMManagedPolicyPolicyserviceroleAWSLambdaS3ExecutionRoleb1d9459c168544d6a7697e835365c9a8": {
+   "Type": "AWS::IAM::ManagedPolicy",
+   "Properties": {
+    "Description": "",
+    "Groups": [],
+    "ManagedPolicyName": "AWSLambdaS3ExecutionRole-b1d9459c-1685-44d6-a769-7e835365c9a8",
+    "Path": "/service-role/",
+    "PolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Resource": "arn:aws:s3:::*",
+       "Action": [
+        "s3:GetObject"
+       ],
+       "Effect": "Allow"
+      }
+     ]
+    },
+    "Roles": [
+     "generate-thumbnail-role"
+    ],
+    "Users": []
+   },
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "SQSFanOutTemplate/IAMManagedPolicyPolicyserviceroleAWSLambdaS3ExecutionRoleb1d9459c168544d6a7697e835365c9a8"
+   }
+  },
+  "IAMManagedPolicyPolicyserviceroleAWSLambdaSQSPollerExecutionRole230286410fcc43d4a53411ff12cc32a3": {
+   "Type": "AWS::IAM::ManagedPolicy",
+   "Properties": {
+    "Description": "",
+    "Groups": [],
+    "ManagedPolicyName": "AWSLambdaSQSPollerExecutionRole-23028641-0fcc-43d4-a534-11ff12cc32a3",
+    "Path": "/service-role/",
+    "PolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Resource": "arn:aws:sqs:us-east-1:361769557650:*",
+       "Action": [
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ReceiveMessage"
+       ],
+       "Effect": "Allow",
+       "Sid": "AWSLambdaSQSPollerExecutionRole"
+      }
+     ]
+    },
+    "Roles": [
+     "generate-thumbnail-role"
+    ],
+    "Users": []
+   },
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "SQSFanOutTemplate/IAMManagedPolicyPolicyserviceroleAWSLambdaSQSPollerExecutionRole230286410fcc43d4a53411ff12cc32a3"
+   }
+  },
+  "IAMManagedPolicyPolicyserviceroleAWSLambdaSQSPollerExecutionRole262bfa723639406fa3052f99a112e8a5": {
+   "Type": "AWS::IAM::ManagedPolicy",
+   "Properties": {
+    "Description": "",
+    "Groups": [],
+    "ManagedPolicyName": "AWSLambdaSQSPollerExecutionRole-262bfa72-3639-406f-a305-2f99a112e8a5",
+    "Path": "/service-role/",
+    "PolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Resource": "arn:aws:sqs:us-east-1:361769557650:*",
+       "Action": [
+        "sqs:DeleteMessage",
+        "sqs:GetQueueAttributes",
+        "sqs:ReceiveMessage"
+       ],
+       "Effect": "Allow",
+       "Sid": "AWSLambdaSQSPollerExecutionRole"
+      }
+     ]
+    },
+    "Roles": [
+     "lambda-sqs-access"
+    ],
+    "Users": []
+   },
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "SQSFanOutTemplate/IAMManagedPolicyPolicyserviceroleAWSLambdaSQSPollerExecutionRole262bfa723639406fa3052f99a112e8a5"
+   }
+  },
+  "S3BucketImguploadiac2025resized": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "BucketKeyEnabled": true,
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "BucketName": "img-upload-iac2025-resized",
+    "OwnershipControls": {
+     "Rules": [
+      {
+       "ObjectOwnership": "BucketOwnerEnforced"
+      }
+     ]
+    },
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    }
+   },
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "SQSFanOutTemplate/S3BucketImguploadiac2025resized"
+   }
+  },
+  "SQSQueueNewimguploadqueue": {
+   "Type": "AWS::SQS::Queue",
+   "Properties": {
+    "DelaySeconds": 0,
+    "MaximumMessageSize": 262144,
+    "MessageRetentionPeriod": 345600,
+    "QueueName": "new-img-upload-queue",
+    "ReceiveMessageWaitTimeSeconds": 0,
+    "SqsManagedSseEnabled": true,
+    "VisibilityTimeout": 30
+   },
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "SQSFanOutTemplate/SQSQueueNewimguploadqueue"
+   }
+  },
+  "IAMRoleGeneratethumbnailrole": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     {
+      "Ref": "IAMManagedPolicyPolicyserviceroleAWSLambdaSQSPollerExecutionRole230286410fcc43d4a53411ff12cc32a3"
+     },
+     "arn:aws:iam::aws:policy/AmazonS3FullAccess",
+     {
+      "Ref": "IAMManagedPolicyPolicyserviceroleAWSLambdaBasicExecutionRolec9016dd897564ea1b28c411330a967d6"
+     },
+     {
+      "Ref": "IAMManagedPolicyPolicyserviceroleAWSLambdaS3ExecutionRoleb1d9459c168544d6a7697e835365c9a8"
+     }
+    ],
+    "MaxSessionDuration": 3600,
+    "Path": "/service-role/",
+    "Policies": [
+     {
+      "PolicyDocument": {
+       "Version": "2012-10-17",
+       "Statement": [
+        {
+         "Resource": "arn:aws:lambda:us-east-1:770693421928:layer:Klayers-p39-Pillow:1",
+         "Action": "lambda:GetLayerVersion",
+         "Effect": "Allow"
+        }
+       ]
+      },
+      "PolicyName": "lambdaGetLayerPermission"
+     },
+     {
+      "PolicyDocument": {
+       "Version": "2012-10-17",
+       "Statement": [
+        {
+         "Resource": "*",
+         "Action": "s3:*",
+         "Effect": "Allow"
+        }
+       ]
+      },
+      "PolicyName": "s3-full-access-lambda"
+     }
+    ],
+    "RoleName": "generate-thumbnail-role"
+   },
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "SQSFanOutTemplate/IAMRoleGeneratethumbnailrole"
+   }
+  },
+  "IAMRoleLambdasqsaccess": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Version": "2012-10-17",
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ]
+    },
+    "ManagedPolicyArns": [
+     "arn:aws:iam::aws:policy/AmazonS3FullAccess",
+     {
+      "Ref": "IAMManagedPolicyPolicyserviceroleAWSLambdaSQSPollerExecutionRole262bfa723639406fa3052f99a112e8a5"
+     },
+     {
+      "Ref": "IAMManagedPolicyPolicyserviceroleAWSLambdaBasicExecutionRole12a7b83263fb4700a64b79855bd0f6ad"
+     }
+    ],
+    "MaxSessionDuration": 3600,
+    "Path": "/service-role/",
+    "RoleName": "lambda-sqs-access"
+   },
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "SQSFanOutTemplate/IAMRoleLambdasqsaccess"
+   }
+  },
+  "SNSTopicImguploadspring2025124375": {
+   "Type": "AWS::SNS::Topic",
+   "Properties": {
+    "ArchivePolicy": {},
+    "FifoTopic": false,
+    "Subscription": [
+     {
+      "Endpoint": {
+       "Fn::GetAtt": [
+        "SQSQueueNewimguploadqueue",
+        "Arn"
+       ]
+      },
+      "Protocol": "sqs"
+     }
+    ],
+    "TopicName": "img-upload-spring-2025-124375",
+    "TracingConfig": "PassThrough"
+   },
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "SQSFanOutTemplate/SNSTopicImguploadspring2025124375"
+   }
+  },
+  "LambdaFunctionGeneratethumbnaillambda": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "x86_64"
+    ],
+    "Code": {
+     "ImageUri": {
+      "Ref": "LambdaCodeImageUri"
+     },
+     "S3Bucket": {
+      "Ref": "LambdaCodeS3Bucket"
+     },
+     "S3Key": {
+      "Ref": "LambdaCodeS3Key"
+     },
+     "S3ObjectVersion": {
+      "Ref": "LambdaCodeS3ObjectVersion"
+     },
+     "ZipFile": {
+      "Ref": "LambdaCodeZipFile"
+     }
+    },
+    "Description": "An Amazon SQS trigger that logs messages in a queue.",
+    "EphemeralStorage": {
+     "Size": 512
+    },
+    "FileSystemConfigs": [],
+    "FunctionName": "generate-thumbnail-lambda",
+    "Handler": "lambda_function.lambda_handler",
+    "Layers": [
+     "arn:aws:lambda:us-east-1:361769557650:layer:my-lambda-pillow-layer:2",
+     "arn:aws:lambda:us-east-1:017000801446:layer:AWSLambdaPowertoolsPythonV3-python310-x86_64:11"
+    ],
+    "LoggingConfig": {
+     "LogFormat": "Text",
+     "LogGroup": "/aws/lambda/generate-thumbnail-lambda"
+    },
+    "MemorySize": 128,
+    "PackageType": "Zip",
+    "Role": {
+     "Fn::GetAtt": [
+      "IAMRoleGeneratethumbnailrole",
+      "Arn"
+     ]
+    },
+    "Runtime": "python3.9",
+    "RuntimeManagementConfig": {
+     "UpdateRuntimeOn": "Auto"
+    },
+    "Tags": [
+     {
+      "Key": "lambda-console:blueprint",
+      "Value": "sqs-poller"
+     }
+    ],
+    "Timeout": 63,
+    "TracingConfig": {
+     "Mode": "PassThrough"
+    }
+   },
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "SQSFanOutTemplate/LambdaFunctionGeneratethumbnaillambda"
+   }
+  },
+  "S3BucketImguploadiac2025": {
+   "Type": "AWS::S3::Bucket",
+   "Properties": {
+    "BucketEncryption": {
+     "ServerSideEncryptionConfiguration": [
+      {
+       "BucketKeyEnabled": true,
+       "ServerSideEncryptionByDefault": {
+        "SSEAlgorithm": "AES256"
+       }
+      }
+     ]
+    },
+    "BucketName": "img-upload-iac2025",
+    "NotificationConfiguration": {
+     "LambdaConfigurations": [],
+     "QueueConfigurations": [],
+     "TopicConfigurations": [
+      {
+       "Event": "s3:ObjectCreated:*",
+       "Filter": {
+        "S3Key": {
+         "Rules": [
+          {
+           "Name": "Prefix",
+           "Value": ""
+          },
+          {
+           "Name": "Suffix",
+           "Value": ""
+          }
+         ]
+        }
+       },
+       "Topic": {
+        "Ref": "SNSTopicImguploadspring2025124375"
+       }
+      }
+     ]
+    },
+    "OwnershipControls": {
+     "Rules": [
+      {
+       "ObjectOwnership": "BucketOwnerEnforced"
+      }
+     ]
+    },
+    "PublicAccessBlockConfiguration": {
+     "BlockPublicAcls": true,
+     "BlockPublicPolicy": true,
+     "IgnorePublicAcls": true,
+     "RestrictPublicBuckets": true
+    }
+   },
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "SQSFanOutTemplate/S3BucketImguploadiac2025"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/yWKwQ6CMBBEv4V7WcGevGrizQTQu1nKqivtVmkbQwj/Luhp5r2ZLZS7AooMPyE3XZ9bbmE6RzS9OtykwgEdRRrUsl8nRgfTok8oeKeu8pbNuP4ab2lWQcPS98n0FFV4h5XqRIlUkB9c/IuNsujaDlc+JjGRvcyzqsb48LLRUGrQ2TMw50OSyI6g+ecXi0eIaaoAAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "SQSFanOutTemplate/CDKMetadata/Default"
+   },
+   "Condition": "CDKMetadataAvailable"
+  }
+ },
+ "Conditions": {
+  "CDKMetadataAvailable": {
+   "Fn::Or": [
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "af-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-3"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-4"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-northwest-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-2"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "il-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "sa-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-1"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Equals": [
+      {
+       "Ref": "AWS::Region"
+      },
+      "us-west-2"
+     ]
+    }
+   ]
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

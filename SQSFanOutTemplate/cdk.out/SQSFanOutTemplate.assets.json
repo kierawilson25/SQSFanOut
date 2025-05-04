@@ -1,0 +1,20 @@
+{
+  "version": "41.0.0",
+  "files": {
+    "d6d385f750304027253dee300020ad44a92f7c28968bd3fc6442f16b67e2e1a8": {
+      "displayName": "SQSFanOutTemplate Template",
+      "source": {
+        "path": "SQSFanOutTemplate.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "d6d385f750304027253dee300020ad44a92f7c28968bd3fc6442f16b67e2e1a8.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
